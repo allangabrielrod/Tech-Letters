@@ -8,6 +8,11 @@ interface ICreateLetter {
   content: string;
 }
 
+interface IUpdateLetter {
+  title?: string;
+  content?: string;
+}
+
 class LettersService {
   private lettersRepository: Repository<Letter>;
 
@@ -32,6 +37,21 @@ class LettersService {
     const letter = await this.lettersRepository.findOne({ id });
 
     return letter;
+  }
+
+  async update(id: string, letter: IUpdateLetter) {
+    const foundLetter = await this.lettersRepository.findOne({ id });
+
+    const updatedLetter = await this.lettersRepository.save({
+      ...foundLetter,
+      ...letter,
+    });
+
+    return updatedLetter;
+  }
+
+  async delete(id: string) {
+    return await this.lettersRepository.delete({ id });
   }
 }
 

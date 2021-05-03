@@ -44,6 +44,38 @@ class LettersController {
       });
     }
   }
+
+  async updateLetter(request: Request, response: Response): Promise<Response> {
+    const lettersService = new LettersService();
+
+    const { id } = request.params;
+    const letter = request.body;
+
+    try {
+      const updatedLetter = await lettersService.update(id, letter);
+
+      return response.json(updatedLetter);
+    } catch (e) {
+      return response.json({
+        message: "Something Went wrong! Try again later.",
+      });
+    }
+  }
+
+  async deleteLetter(request: Request, response: Response): Promise<Response> {
+    const lettersService = new LettersService();
+
+    const { id } = request.params;
+    try {
+      await lettersService.delete(id);
+
+      return response.json({ message: "Deleted." });
+    } catch (e) {
+      return response.json({
+        message: "Something Went wrong! Try again later.",
+      });
+    }
+  }
 }
 
 export { LettersController };

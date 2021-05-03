@@ -10,8 +10,10 @@ const usersController = new UsersController();
 
 //Letters routes
 routes.get("/letters", lettersController.getLetters);
-routes.get("/letters/:id", lettersController.getLetterById);
 routes.post("/letters", lettersController.createLetter);
+routes.get("/letters/:id", lettersController.getLetterById);
+routes.patch("/letters/:id", lettersController.updateLetter);
+routes.delete("/letters/:id", lettersController.deleteLetter);
 
 //Users routes
 routes.post("/users", usersController.register);
